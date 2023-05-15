@@ -1,11 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const getItem = async (key) => {
+export const getOnboardingState = async () => {
     try {
-        const value = await AsyncStorage.getItem(key);
+        const value = await AsyncStorage.getItem("isOnboardingCompleted");
         return value == "true" ? true : false;
     } catch (e) {
         return false;
+    }
+};
+
+export const getItem = async (key) => {
+    try {
+        return await AsyncStorage.getItem(key);
+    } catch (e) {
+        throw e;
     }
 };
 
@@ -24,3 +32,16 @@ export const setMultipleItems = async (values, endingCallback) => {
         return e;
     }
 };
+
+export const eraseAll = async (endingCallback) => {
+    try {
+        const keys = await AsyncStorage.getAllKeys();
+        await AsyncStorage.multiRemove(keys, endingCallback);
+    } catch (e) {
+        return e;
+    }
+};
+
+
+
+

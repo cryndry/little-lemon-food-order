@@ -56,7 +56,11 @@ export function saveMenuItems(menuItems) {
 export async function filterByQueryAndCategories(searchTerm, activeCategory) {
   return new Promise((resolve) => {
     db.transaction((tx) => {
-      const querySql = `SELECT * FROM menuitems WHERE ${activeCategory === "" ? "" : `category='${activeCategory}'`}${activeCategory !== "" && searchTerm !== "" ? " AND " : ""}${searchTerm === "" ? "" : `name LIKE '%${searchTerm}%'`}`;
+      let querySql = "SELECT * FROM menuitems";
+      if (!(activeCategory === "" && searchTerm === "")) {
+        querySql += ` WHERE ${activeCategory === "" ? "" : `category='${activeCategory}'`}${activeCategory !== "" && searchTerm !== "" ? " AND " : ""}${searchTerm === "" ? "" : `name LIKE '%${searchTerm}%'`}`;
+      }
+
       tx.executeSql(querySql, [], (_, { rows }) => {
         resolve(rows._array);
       });

@@ -46,7 +46,7 @@ export default function Onboarding({ setIsOnboardingCompleted }) {
         if (errorFlag) return;
         
         setMultipleItems([
-            ['isOnboardingCompleted', "true"], ["name", name], ["email", email]
+            ['isOnboardingCompleted', "true"], ["firstName", name], ["email", email]
         ], () => {
             setIsOnboardingCompleted(() => true);
         })
