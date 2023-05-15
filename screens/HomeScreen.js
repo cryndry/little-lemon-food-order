@@ -9,7 +9,7 @@ import {
     getMenuItems,
     saveMenuItems,
     filterByQueryAndCategories,
-} from '../database.js';
+} from '../utils/database.js';
 
 export default function HomeScreen() {
     const [menuItems, setMenuItems] = useState([]);

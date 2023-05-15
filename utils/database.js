@@ -1,4 +1,4 @@
-import {openDatabase} from 'expo-sqlite';
+import { openDatabase } from 'expo-sqlite';
 
 const db = openDatabase('little_lemon');
 
@@ -39,8 +39,8 @@ export async function getMenuItems() {
 export function saveMenuItems(menuItems) {
   let sqlQuery = "INSERT INTO menuitems (name, price, category, description, image) VALUES ";
   menuItems.forEach((item, index) => {
-    Object.keys(item).forEach(key => {try {item[key] = item[key].replace("'","''")} catch {} }) // escaping single quotes in texts
-    
+    Object.keys(item).forEach(key => { try { item[key] = item[key].replace("'", "''") } catch { } }) // escaping single quotes in texts
+
     let queryString = `('${item.name}', ${item.price}, '${item.category}', '${item.description}', '${item.image}')`;
     if (index === menuItems.length - 1) {
       sqlQuery += queryString;
